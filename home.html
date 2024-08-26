@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        /* Basic styles for layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .profile-section {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-section img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 60px; /* Adjust this value so the dropdown appears directly below the image */
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            min-width: 160px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .profile-section:hover .profile-dropdown,
+        .profile-dropdown:hover {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .friends-container {
+            padding: 20px;
+        }
+
+        .friend {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .add-friend-form {
+            margin-bottom: 20px;
+        }
+
+        .add-friend-form input[type="text"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .add-friend-form button {
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-friend-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Welcome to RLFRNDS!</h1>
+        <div class="profile-section">
+            <img src="/static/images/profilepicture.jpg" alt="Profile Picture">
+            <div class="profile-dropdown">
+                <a href="#">View Profile</a>
+                <a href="#">Settings</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="friends-container">
+        <h2>Your Friends</h2>
+
+        <!-- Add Friend Form -->
+        <form class="add-friend-form" id="add-friend-form">
+            <input type="text" id="friend-username" placeholder="Friend's Username" required>
+            <button type="submit">Add Friend</button>
+        </form>
+
+        <!-- Display Friends -->
+        {% for friend in friends %}
+        <div class="friend">
+            <p>{{ friend.username }} ({{ friend.email }})</p>
+            <button>Remove Friend</button> <!-- You can add functionality to this later -->
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.getElementById('add-friend-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const friendUsername = document.getElementById('friend-username').value;
+
+            fetch('/add_friend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ friend_username: friendUsername }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Friend added successfully') {
+                    window.location.reload();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error occurred.');
+            });
+        });
+    </script>
+</body>
+</html>
