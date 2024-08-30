@@ -38,3 +38,5 @@ the program is currently a website but will be a .exe file when finished.
 - switched from sqLite to postgreSQL
 - fixed bugs and did some future proofing
 - Devlog: This update I didn't do anything too special. It was mostly futureproofing and backend coding.
+
+Note: the files have not been updated yet. will happen next update
