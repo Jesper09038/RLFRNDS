@@ -30,3 +30,11 @@ the program is currently a website but will be a .exe file when finished.
 - added log out feature
 - added add friends feature
 - added the full homepage with functional buttons
+
+0.3 30th august 2024
+- added backend for settings and profile
+- remove friend works
+- default profile picture
+- switched from sqLite to postgreSQL
+- fixed bugs and did some future proofing
+- Devlog: This update I didn't do anything too special. It was mostly futureproofing and backend coding.
