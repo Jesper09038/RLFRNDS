@@ -56,11 +56,19 @@ the program is currently a website but will be a .exe file when finished.
 Note: the files have not been updated yet. Will happen next update
 
 # UI
+
 Logo:
+
 ![default_profile_picture](https://github.com/user-attachments/assets/3e2b33d6-83c8-4dcb-ad73-6dc9f2af4608)
+
 Homepage:
+
 ![Screenshot 2024-08-31 113859](https://github.com/user-attachments/assets/c0683f43-6185-4413-b740-fceb465f96cb)
+
 Signup screen:
+
 ![Screenshot 2024-08-31 113915](https://github.com/user-attachments/assets/ca58c961-9e45-4619-a68e-9031c0eb6657)
+
 Login screen:
+
 ![Screenshot 2024-08-31 113935](https://github.com/user-attachments/assets/69ea6285-9530-4eba-b4bd-e89726dd3f5d)
