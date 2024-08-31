@@ -10,13 +10,21 @@ RLFRNDS is made to fix this problem. On RLFRNDS you are able to add friends, see
 
 The garanteed featureslist: (✅ means its already implemented)
 - ✅add friends
-- remove friends
+- ✅remove friends
+- ✅homepage
+- ✅accounts
+
+- checking if the email exists
 - see the status of friends
 - invite friends
 - settings (under which you can change your username and profile picture)
 - ✅log out
 - ✅log in
 - ✅sign up
+- ✅client side
+- ✅friend requests
+- better UI
+- fix bugs
 
 the program is currently a website but will be a .exe file when finished.
 
@@ -39,4 +47,20 @@ the program is currently a website but will be a .exe file when finished.
 - fixed bugs and did some future proofing
 - Devlog: This update I didn't do anything too special. It was mostly futureproofing and backend coding.
 
-Note: the files have not been updated yet. will happen next update
+0.4 31st august 2024
+- started on client side program
+- made friend requests requests instead of unwillingly adding them
+- fixed profile pictures
+- Devlog: I started on the client side where you can actually open an application which will lead to the homepage or login screen. Next up will be the settings which is probably one of the standard and more important features.
+
+Note: the files have not been updated yet. Will happen next update
+
+# UI
+Logo:
+![default_profile_picture](https://github.com/user-attachments/assets/3e2b33d6-83c8-4dcb-ad73-6dc9f2af4608)
+Homepage:
+![Screenshot 2024-08-31 113859](https://github.com/user-attachments/assets/c0683f43-6185-4413-b740-fceb465f96cb)
+Signup screen:
+![Screenshot 2024-08-31 113915](https://github.com/user-attachments/assets/ca58c961-9e45-4619-a68e-9031c0eb6657)
+Login screen:
+![Screenshot 2024-08-31 113935](https://github.com/user-attachments/assets/69ea6285-9530-4eba-b4bd-e89726dd3f5d)
