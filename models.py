@@ -7,8 +7,10 @@ class User(db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    last_active = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
+    profile_picture = db.Column(db.String(120), default='default_profile_picture.png')
+    last_active = db.Column(db.DateTime, default=datetime.utcnow)
+    is_online = db.Column(db.Boolean, default=False)
+    
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 

@@ -1,34 +1,30 @@
-# app_factory.py
-from flask import Flask, send_from_directory
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_jwt_extended import JWTManager
+from flask_socketio import SocketIO
+import os
+from config import config
 
 db = SQLAlchemy()
 migrate = Migrate()
-jwt = JWTManager()
+socketio = SocketIO()
 
-def create_app(config_object='config.Config'):
+def create_app(config_name=None):
     app = Flask(__name__)
-    app.config.from_object(config_object)
-
-    # Initialize extensions
+    
+    if config_name is None:
+        config_name = os.getenv('FLASK_CONFIG', 'default')
+    app.config.from_object(config[config_name])
+    
+    app.secret_key = os.getenv('FLASK_SECRET_KEY', '0c52b4a010d36cf337abc234b7a6c345')  
+    
     db.init_app(app)
     migrate.init_app(app, db)
-    jwt.init_app(app)
-
-    # Register Blueprints
+    socketio.init_app(app)
+    
     from routes import main_routes
     app.register_blueprint(main_routes)
-
-    @app.route('/login')
-    def login():
-        return send_from_directory('', 'index.html')
-
-    @app.route('/signup')
-    def signup():
-        return send_from_directory('', 'index.html')
-
+    
     with app.app_context():
         db.create_all()
 
