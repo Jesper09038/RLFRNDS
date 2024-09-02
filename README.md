@@ -59,7 +59,7 @@ the program is currently a website but will be a .exe file when finished.
 - you can now edit your username and profile picture
 - you can now delete your account if you wish to do so
 - added a partial backend for the online presence feature
-- added a client YOU can use to the github (won't work all the time or even never, depends on if you are lucky)
+- added a client YOU can (not yet) use to the github (won't work all the time or even never, depends on if you are lucky)
 
 # (old) UI
 
