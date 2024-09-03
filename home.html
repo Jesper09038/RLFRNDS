@@ -4,161 +4,444 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
-        /* Basic styles for layout */
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+            background-color: #fff;
+        }
+        
+        .background img {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            height: auto;
+            width: auto;
         }
 
-        .navbar {
-            background-color: #007bff;
-            padding: 10px;
+        .logo img {
+            position: absolute;
+            right: 0;
+            height: 200px;
+            width: 200px;
+            margin-top: -90px;
+            margin-bottom: -100px;
+        }
+
+        /* Common styling for both friend list and requests list */
+        .friend-list, .requests-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+        
+        .friend-item, .request-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #fff;
+            width: 98%;
+            background-color: #f4f4f4;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        /* Common styling for text and images in the items */
+        .friend-item span, .request-item span {
+            display: flex;
+            align-items: center;
+            font-size: 110%;
+        }
+        
+        .friend-item img, .request-item img {
+            border-radius: 50%;
+            margin-right: 12px;
+            width: 50px;
+            height: 50px;
         }
 
-        .profile-section {
+        /* Dropdown styling */
+        .dropdown {
             position: relative;
             display: inline-block;
         }
-
-        .profile-section img {
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
+        
+        .dropdown-toggle {
+            background-color: #C0C0C0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 20px;
             cursor: pointer;
         }
-
-        .profile-dropdown {
+        
+        .dropdown-menu {
             display: none;
             position: absolute;
-            top: 60px; /* Adjust this value so the dropdown appears directly below the image */
             right: 0;
-            background-color: #fff;
+            background-color: white;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
             z-index: 1;
-            min-width: 160px;
-            border-radius: 4px;
             overflow: hidden;
         }
-
-        .profile-section:hover .profile-dropdown,
-        .profile-dropdown:hover {
-            display: block;
-        }
-
-        .profile-dropdown a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #333;
-            background-color: #fff;
-        }
-
-        .profile-dropdown a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .friends-container {
-            padding: 20px;
-        }
-
-        .friend {
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #fff;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .add-friend-form {
-            margin-bottom: 20px;
-        }
-
-        .add-friend-form input[type="text"] {
-            padding: 10px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .add-friend-form button {
-            padding: 10px;
-            background-color: #007bff;
+        
+        .dropdown-menu button {
+            background-color: #f4f4f4;
+            color: black;
             border: none;
-            color: #fff;
-            font-size: 16px;
-            border-radius: 4px;
+            border-radius: 5px;
+            padding: 5px 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .dropdown-menu button:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-menu button:hover {
+            background-color: #ddd;
+        }
+
+        /* Show dropdown menu on toggle */
+        .dropdown.show .dropdown-menu {
+            display: block;
+        }
+        
+        .friend-item button, .request-item button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .friend-item button:hover, .request-item button:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Additional buttons for request items */
+        .request-item .accept-friend-btn {
+            background-color: #2ecc71;
+        }
+        
+        .request-item .accept-friend-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .request-item .decline-friend-btn {
+            background-color: #e74c3c;
+        }
+        
+        .request-item .decline-friend-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .add-friend-section {
+            margin-top: 20px;
+        }
+
+        .add-friend-section input {
+            padding: 5px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .add-friend-section button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
             cursor: pointer;
         }
 
-        .add-friend-form button:hover {
-            background-color: #0056b3;
+        .add-friend-section button:hover {
+            background-color: #27ae60;
+        }
+
+        /* Profile menu styling */
+        .profile-menu {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: auto;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            color: black;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f4f4f4;
+        }
+
+        .online {
+            border: 2px solid green;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Welcome to RLFRNDS!</h1>
-        <div class="profile-section">
-            <img src="/static/images/profilepicture.jpg" alt="Profile Picture">
-            <div class="profile-dropdown">
-                <a href="#">View Profile</a>
-                <a href="#">Settings</a>
-                <a href="/logout">Logout</a>
+    <div class="background">
+        <img src="{{ url_for('static', filename='images/logo_grey.png') }}" alt="Logo">
+    </div>
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo_black_with_text.png') }}" alt="Logo">
+    </div>
+    <div class="container">
+        <header>
+            <div class="profile-menu">
+                <div class="profile" id="profile-dropdown-toggle">
+                    <img src="{{ url_for('static', filename='images/' ~ current_user.profile_picture) }}" alt="{{ current_user.username }}'s profile picture">
+                    <i class="dropdown-icon"></i>
+                </div>
+                <div class="dropdown-content" id="profile-dropdown">
+                    <a href="/settings">Settings</a>
+                    <a href="/logout">Logout</a>
+                </div>
             </div>
+            <h1>Welcome, {{ current_user.username }}</h1>
+        </header>
+
+        <!-- Friend List Section -->
+        <div class="friend-list">
+            <h2>Your Friends</h2>
+            {% for friend in friends %}
+            <div class="friend-item" id="friend-{{ friend.id }}">
+                <span> 
+                    <img src="{{ url_for('static', filename='images/' ~ friend.profile_picture) }}" alt="{{ friend.username }}'s profile picture">
+                    {{ friend.username }}
+                </span>
+                <div class="dropdown">
+                    <button class="dropdown-toggle">Options</button>
+                    <div class="dropdown-menu">
+                        <button class="remove-friend-btn" data-friend-id="{{ friend.id }}">Remove</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Add Friend Section -->
+        <div class="add-friend-section">
+            <h2>Add a Friend</h2>
+            <input type="text" id="friend-username" placeholder="Enter friend's username">
+            <button class="add-friend-btn">Add Friend</button>
+        </div>
+
+        <!-- Incoming Friend Requests Section -->
+        <div id="friend-requests" class="requests-list">
+            <h2>Incoming Friend Requests</h2>
+            <ul id="requests-list" class="user-list">
+                <!-- Friend requests will be injected here by JavaScript -->
+            </ul>
         </div>
     </div>
 
-    <div class="friends-container">
-        <h2>Your Friends</h2>
-
-        <!-- Add Friend Form -->
-        <form class="add-friend-form" id="add-friend-form">
-            <input type="text" id="friend-username" placeholder="Friend's Username" required>
-            <button type="submit">Add Friend</button>
-        </form>
-
-        <!-- Display Friends -->
-        {% for friend in friends %}
-        <div class="friend">
-            <p>{{ friend.username }} ({{ friend.email }})</p>
-            <button>Remove Friend</button> <!-- You can add functionality to this later -->
-        </div>
-        {% endfor %}
-    </div>
-
+    <!-- JavaScript Section -->
     <script>
-        document.getElementById('add-friend-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const friendUsername = document.getElementById('friend-username').value;
+        // Event Delegation for various actions
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('dropdown-toggle')) {
+                toggleDropdown(e.target);
+            } else if (e.target.classList.contains('remove-friend-btn')) {
+                handleRemoveFriend(e.target);
+            } else if (e.target.classList.contains('add-friend-btn')) {
+                handleAddFriend();
+            } else if (e.target.classList.contains('accept-friend-btn') || e.target.classList.contains('decline-friend-btn')) {
+                handleFriendRequest(e.target.dataset.requestId, e.target.classList.contains('accept-friend-btn') ? 'accept' : 'decline');
+            } else {
+                closeDropdowns();
+            }
+        });
 
+        function handleRemoveFriend(button) {
+            const friendId = button.getAttribute('data-friend-id');
+            fetch('/remove_friend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ friend_id: friendId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Friend removed successfully') {
+                    document.getElementById(`friend-${friendId}`).remove();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while removing the friend. Please try again.');
+            });
+        }
+
+        function handleAddFriend() {
+            const username = document.getElementById('friend-username').value.trim();
             fetch('/add_friend', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ friend_username: friendUsername }),
+                body: JSON.stringify({ friend_username: username }),
             })
             .then(response => response.json())
             .then(data => {
-                if (data.message === 'Friend added successfully') {
-                    window.location.reload();
+                if (data.message === 'Friend request sent successfully') {
+                    alert('Friend request sent successfully');
+                    document.getElementById('friend-username').value = '';
                 } else {
-                    alert(data.message);
+                    alert('Error: ' + data.message);
                 }
             })
             .catch(error => {
-                alert('Error occurred.');
+                alert('Error occurred: ' + error);
             });
+        }
+
+        function fetchFriendRequests() {
+            fetch('/incoming_friend_requests')
+                .then(response => response.json())
+                .then(data => {
+                    const requestsList = document.getElementById('requests-list');
+                    requestsList.innerHTML = '';
+
+                    if (data.incoming_requests.length === 0) {
+                        requestsList.innerHTML = '<li>No incoming friend requests</li>';
+                    } else {
+                        data.incoming_requests.forEach(request => {
+                            const listItem = document.createElement('li');
+                            listItem.className = 'request-item';
+                            listItem.innerHTML = `
+                                <span>
+                                    <img src="{{ url_for('static', filename='images/') }}${request.profile_picture}" alt="${request.username}'s profile picture">
+                                    ${request.username}
+                                </span>
+                                <div>
+                                    <button class="accept-friend-btn" data-request-id="${request.id}">Accept</button>
+                                    <button class="decline-friend-btn" data-request-id="${request.id}">Decline</button>
+                                </div>
+                            `;
+                            requestsList.appendChild(listItem);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching friend requests:', error);
+                    alert('Failed to load friend requests. Please try again later.');
+                });
+        }
+
+        function handleFriendRequest(requestId, action) {
+            const url = action === 'accept' ? '/accept_friend' : '/decline_friend';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ request_id: requestId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    fetchFriendRequests(); // Refresh the friend request list
+                    if (action === 'accept') {
+                        location.reload(); // Refresh the page to update the friend list
+                    }
+                }
+            })
+            .catch(error => {
+                alert('Error occurred: ' + error);
+            });
+        }
+
+        function toggleDropdown(button) {
+            const dropdown = button.closest('.dropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('show');
+            }
+        }
+
+        function closeDropdowns() {
+            document.querySelectorAll('.dropdown.show').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+        }
+
+        // Profile dropdown toggle
+        document.getElementById('profile-dropdown-toggle').addEventListener('click', function() {
+            const dropdown = document.getElementById('profile-dropdown');
+            if (dropdown) {
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            }
+        });
+
+        // Close profile dropdown when clicking outside
+        window.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profile-dropdown');
+            if (dropdown && !event.target.closest('#profile-dropdown-toggle')) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Fetch friend requests when the page loads
+        document.addEventListener('DOMContentLoaded', fetchFriendRequests);
+    </script>
+
+    <script src="https://cdn.socket.io/4.1.3/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('online_status', function(data) {
+            const userId = data.user_id;
+            const isOnline = data.is_online;
+
+            // Update the UI to reflect online status
+            const userElement = document.getElementById(`user-${userId}`);
+            if (userElement) {
+                userElement.classList.toggle('online', isOnline);
+            }
         });
     </script>
 </body>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative; /* Added to position the homepage button */
+        }
+        
+        .settings-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .settings-section {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        
+        input[type="text"], 
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .save-btn {
+            background-color: #000000;
+        }
+        
+        .upload-btn {
+            background-color: #000000;
+        }
+        
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Styles for the Homepage Button */
+        .Homepage-section {
+            position: absolute;
+            top: 20px; /* Distance from the top */
+            left: 20px; /* Distance from the left */
+        }
+
+        .homepage-btn {
+            background-color: #000000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .homepage-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage Button Section -->
+    <div class="Homepage-section">
+        <form id="Homepage-form" method="GET" action="{{ url_for('main_routes.homepage') }}">
+            <button type="submit" class="homepage-btn">Back to Homepage</button>
+        </form>
+    </div>
+
+    <!-- Settings Container -->
+    <div class="settings-container">
+        <h1>Settings</h1>
+
+        <!-- Username Section -->
+        <div class="settings-section">
+            <form id="username-form" method="POST" action="{{ url_for('main_routes.settings') }}">
+                <label for="username">Change Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter new username" value="{{ user.username }}">
+                <button type="submit" class="save-btn">Save Username</button>
+            </form>
+        </div>
+
+        <!-- Profile Picture Section -->
+        <div class="settings-section">
+            <form id="profile-picture-form" method="POST" action="{{ url_for('main_routes.settings') }}" enctype="multipart/form-data">
+                <label for="profile-picture">Change Profile Picture</label>
+                <input type="file" id="profile-picture" name="profile_picture" accept="image/*">
+                <button type="submit" class="upload-btn">Upload Picture</button>
+            </form>
+        </div>
+
+        <!-- Delete Account Section -->
+        <div class="settings-section">
+            <form id="delete-account-form" method="POST" action="{{ url_for('main_routes.delete_account') }}">
+                <label>Delete Account</label>
+                <button type="submit" class="delete-btn">Delete Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle form submissions and confirmations
+
+        // Delete Account Confirmation
+        document.getElementById('delete-account-form').onsubmit = function(event) {
+            if (!confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                event.preventDefault(); // Prevent the form from submitting if the user cancels
+            }
+        };
+    </script>
+</body>
+</html>

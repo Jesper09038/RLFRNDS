@@ -9,10 +9,23 @@
             font-family: 'Roboto', sans-serif;
             background-color: #f4f4f4;
             display: flex;
+            flex-direction: column; /* Allows stacking logo and container */
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+        }
+
+        .logo {
+            margin-bottom: 20px; /* Space between the logo and the container */
+        }
+
+        .logo img {
+            width: 600px;
+            height: 600px;
+            display: flex;
+            margin-bottom: -150px;
+            margin-top: -350px;
         }
 
         .container {
@@ -22,10 +35,10 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
+            text-align: center; /* Center the contents */
         }
 
         .container h2 {
-            text-align: center;
             margin-bottom: 20px;
             font-size: 24px;
             color: #333;
@@ -45,7 +58,7 @@
         .container button {
             width: 100%;
             padding: 12px;
-            background-color: #007bff;
+            background-color: #000000;
             border: none;
             color: #fff;
             font-size: 18px;
@@ -55,7 +68,7 @@
         }
 
         .container button:hover {
-            background-color: #0056b3;
+            background-color: #504D4C;
         }
 
         .container p {
@@ -81,6 +94,10 @@
     </style>
 </head>
 <body>
+    <div class="logo">
+        <img src="static/images/logo_black_with_text.png" alt="Logo">
+    </div>
+
     <div class="container">
         <h2>Sign Up</h2>
         <form id="signup-form">
@@ -92,6 +109,7 @@
         <p id="message"></p>
         <p>Already have an account? <a href="/login">Login here</a></p>
     </div>
+    
     <script>
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
