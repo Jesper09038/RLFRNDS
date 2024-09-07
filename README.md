@@ -13,9 +13,8 @@ The garanteed featureslist: (✅ means its already implemented)
 - ✅remove friends
 - ✅homepage
 - ✅accounts
-
 - checking if the email exists
-- see the status of friends
+- ✅see the status of friends
 - invite friends
 - ✅settings (under which you can change your username and profile picture)
 - ✅log out
@@ -61,20 +60,42 @@ the program is currently a website but will be a .exe file when finished.
 - added a partial backend for the online presence feature
 - added a client YOU can (not yet) use to the github (won't work all the time or even never, depends on if you are lucky)
 
-# (old) UI
+0.6 september 7th 2024
+- added online/offline feature
+- accidentally messed up the UI
+- connected client to server with socketIO
+- Devlog: Next up will be auto starting of the program, fixing the UI, making sure the client side has auto log in into the most recent account. after 0.7 (if I'm lucky) I will be able to launch 1.0!
+
+note: didn't update the code again, I'll update it with 1.0. After 1.0 I might be done with this project anyway.
+
+# UI
 
 Logo:
 
-![default_profile_picture](https://github.com/user-attachments/assets/3e2b33d6-83c8-4dcb-ad73-6dc9f2af4608)
+
+![default_profile_picture](https://github.com/user-attachments/assets/09f84370-569d-4f67-9fa4-26646269eebf)
+
 
 Homepage:
 
-![Screenshot 2024-08-31 113859](https://github.com/user-attachments/assets/c0683f43-6185-4413-b740-fceb465f96cb)
+
+![Screenshot 2024-09-07 173238](https://github.com/user-attachments/assets/5ebb98ea-563f-4f6b-8e22-16da2d7c23b1)
+
 
 Signup screen:
 
-![Screenshot 2024-08-31 113915](https://github.com/user-attachments/assets/ca58c961-9e45-4619-a68e-9031c0eb6657)
+
+![Screenshot 2024-09-07 174052](https://github.com/user-attachments/assets/f27145e6-01b9-48b4-9e29-4648ab40e606)
+
 
 Login screen:
 
-![Screenshot 2024-08-31 113935](https://github.com/user-attachments/assets/69ea6285-9530-4eba-b4bd-e89726dd3f5d)
+
+![Screenshot 2024-09-07 174039](https://github.com/user-attachments/assets/f048c8bb-b046-454d-bfd1-7412609b51f5)
+
+
+Settings:
+
+
+![Screenshot 2024-09-07 174030](https://github.com/user-attachments/assets/d9dbcb2b-b9cd-4bf1-aa21-a1c76f06e304)
+
